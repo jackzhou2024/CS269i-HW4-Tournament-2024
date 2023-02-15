@@ -10,7 +10,7 @@ STRATEGY_FOLDER = "exampleStrats"
 CONTEXT_FILE = "context.json"
 
 
-NUM_ROUNDS = 10000 # You can reduce the num round when you debug
+NUM_ROUNDS = 1000 # You can reduce the num round when you debug
 
 def gen_context():
     f = open(CONTEXT_FILE, 'w')
@@ -46,6 +46,8 @@ def calcScore(value, allocationResult, payment):
         # loser: utility is 0-payment
         return 0 - payment
     
+def calcRevenue():
+    pass
 
 def runRound(pair, auction):
     # print("modulea:",STRATEGY_FOLDER+"."+pair[0])
@@ -61,7 +63,8 @@ def runRound(pair, auction):
     history2 = []
     cnt1 = 0
     cnt2 = 0
-    for turn in range(LENGTH_OF_GAME):
+    revenue = 0
+    for turn in range(NUM_ROUNDS):
         contextItem = contextJson[turn]
         v1 = contextItem["v1"]
         v2 = contextItem["v2"]
@@ -82,7 +85,9 @@ def runRound(pair, auction):
         totalScore2 += score2
         history1.append([v1, bid1, auctionResult[0][0], auctionResult[0][1]])
         history2.append([v2, bid2, auctionResult[1][0], auctionResult[1][1]])
-    return totalScore1, totalScore2
+
+        revenue += auctionResult[0][1] +  auctionResult[0][1]
+    return totalScore1, totalScore2, revenue 
 
 
 def pad(stri, leng):
@@ -108,25 +113,32 @@ def runFullPairingTournament(auctionFolder, stratsFolder):
     for strategy in STRATEGY_LIST:
         scoreKeeper[strategy] = 0
 
+
     for auction in AUCTION_LIST:
+        totalRevenue = 0
+        pairNum = 0
         for pair in itertools.combinations(STRATEGY_LIST, r=2):
-            score1, score2 = runRound(pair, auction)
+            score1, score2, revenue = runRound(pair, auction)
             scoreKeeper[pair[0]] += score1
             scoreKeeper[pair[1]] += score2
+            totalRevenue += revenue
+            pairNum +=1
+        print(auction, "Pair Number=", pairNum, "\t RevenuePerRound ", round(totalRevenue/pairNum,2))
+        
     
         
-    scoresNumpy = np.zeros(len(scoreKeeper))
-    for i in range(len(STRATEGY_LIST)):
-        scoresNumpy[i] = scoreKeeper[STRATEGY_LIST[i]]
-    rankings = np.argsort(scoresNumpy)
+    # scoresNumpy = np.zeros(len(scoreKeeper))
+    # for i in range(len(STRATEGY_LIST)):
+    #     scoresNumpy[i] = scoreKeeper[STRATEGY_LIST[i]]
+    # rankings = np.argsort(scoresNumpy)
 
-    print("\n\nTOTAL SCORES\n")
-    for rank in range(len(STRATEGY_LIST)):
-        i = rankings[-1-rank]
-        score = scoresNumpy[i]
-        scorePer = score/(len(STRATEGY_LIST)-1)
-        print("#"+str(rank+1)+": "+pad(STRATEGY_LIST[i]+":",16)+' %.3f'%score+'  (%.3f'%scorePer+" average)\n")
-    print("Done with everything!")
+    # print("\n\nTOTAL SCORES\n")
+    # for rank in range(len(STRATEGY_LIST)):
+    #     i = rankings[-1-rank]
+    #     score = scoresNumpy[i]
+    #     scorePer = score/(len(STRATEGY_LIST)-1)
+    #     print("#"+str(rank+1)+": "+pad(STRATEGY_LIST[i]+":",16)+' %.3f'%score+'  (%.3f'%scorePer+" average)\n")
+    # print("Done with everything!")
     
     
 runFullPairingTournament(AUCTION_FOLDER, STRATEGY_FOLDER)

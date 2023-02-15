@@ -4,53 +4,28 @@ This tournament code is developed by Jinkun Geng.
 
 
 How this works:
-Your task is to write a bidding strategy, following the template in exampleStrats; i.e., you will implement a function called strategy.
+This time, your task is to write an auction strategy, following the template in auctionStrats; i.e., you will implement a function called auctionStrategy, which takes as input two bid prices and return a 2x2 list to represent the auction results (refer to the comments in the examples)
 
-We will run your strategy in a 10,000-round-repeated auction against both baseline auto-bidders (as shown in exampleStrats), and classmates' auto-bidders. 
+We will use the biding strategies submitted by students in HW3, and we will run you auction strategy for these bidding bots. After 1000-round-repeated auction between each pair of these classmates' auto-bidders, we will calculate the revenue earned by your auction strategy as your score. A better auction strategy should enable you to earn more revenue. 
+
 We are not specifying the auction format a-priori (see restrictions on auction format below), so your auto-bidder will have to learn how to bid based on feedback (value, bid, payment, and allocation) from previous rounds. 
 
-There are three example auction modes in the code (e.g., singleItemFirstPrice, singleItemSecondPrice,
-singleItemAllPay), but your auto-bidder should be robust to other auctions as well. The auction mode will determine how to calculate the scores for bots (please refer to calcScores function in game_run.py). During the gradescope competition, we might add more auction modes.
-
-
-During each round, both your bot and the baseline will be given an initial value independently chosen from [0,1]. At the beginning of round i, your are also provided with the history in the past i-1 rounds (refer to the comments in exampleStrats/random_bid.py). The history might be helpful for you to derive the auction mode used in this 10000 rounds, so that you can better design your strategy. 
-
-Regardless of the auction mode, you can assume that your auto-bidder's payment is never more than the bid.
 
 
 # Score Calculation
-Your score is your total utility across 10000 rounds of the auction.
-You can refer to calcScore function in game_run.py for the methods of score calculation.
-
-For example, say $v_w$, $v_L$ are values of winner/loser, $b_W$, $b_L$ are bids. $u_W$, $u_L$ are the scores.
-Then:
+Your score is the average revenue earned by your auction strategy. 
 
 
-(1) SINGLE_ITEM_FIRST_PRICE, 
-$u_W = v_W - b_W$,
-$u_L = 0$
-
-(2) SINGLE_ITEM_SECOND_PRICE, 
-$u_W = v_W - b_L$,
-$u_L = 0$
-
-(3) SINGLE_ITEM_ALL_PAY, 
-$u_W = v_W - b_W$,
-$u_L = -b_L$
-
-
-You can check the auctionStrats folder to see how we implement these three modes to decide the allocation result (i.e., who is the winner) and the payment.
-
-In our gradescope test, we may include new auction modes.
+In our gradescope test, we may include new metric to calcuate the score (e.g. using the welfare instead of revenue).
 
 
 # Tasks
-You are expected to write a python file named strategy.py (Please keep this name!). In this file you are expected to implement a function named strategy. After you finish you code, put the strategy.py to the folder exampleStrats, run the game_run.py.
+You are expected to write a python file named strategy.py (Please keep this name!). In this file you are expected to implement a function named auctionStrategy. After you finish you code, put the strategy.py to the folder auctionStrats, run the game_run.py.
 
 
-We have made three examples in exampleStrats, the simpler one is random_bid_shade.py, which simply bids with a price by multiplying a factor with the value; the other is a more complicated Multi-Armed-Bandit (MAB) algorithm, we are using MABWiser lib to implement it, and you can read more info at  https://fidelity.github.io/mabwiser/about.html and implement your MAB algorithm following the example, and we have provided both contextual MAB and context-free MAB for your reference.
+We have made three examples in auctionStrats, i.e., first-price based auction, second-price based auction, and all-paid auction. You should design your own auction strategy to earn the most revenue. 
 
-While designing your strategy function, you will receive the history of your past bids, which is represented as myHistory list (refer to the comments in random_bid_shade.py/context-free-multi-armed-bandit.py/contextual-multi-armed-bandit.py). You can choose to use/not use the history information to help you design better algorithms.
+You may think that all-paid auction is a good choice, but probably it will not earn the most revenue since there are many bidding strategies using multi-armed-bandit algorithms in the last submission. If you continue to charge both bidders, the MAB algorithm might take corresponding action to reduce the bid prices.
 
 
 # Tips
@@ -85,12 +60,10 @@ cd code
 python game_run.py
 ```
 
-Without writing any code, you should be able to run the competition for the existing strategies in the exampleStrats folder. Then, you write your own strategy.py and put the file into the folder, rerun dilemma_run.py to see whether you can beat these baselines.
-
 
 # Note
 
-All you need to do is to write a strategy.py file and add it to exampleStrats. No need to change any existing files.
+All you need to do is to write a strategy.py file and add it to auctionStrats. No need to change any existing files.
 
 When submitting to gradescope, you only submit strategy.py, no other files are needed.
 
