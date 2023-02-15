@@ -1,4 +1,4 @@
-# Auction Auto-bidding Tournament
+# Auction Tournament
 
 This tournament code is developed by Jinkun Geng. 
 
