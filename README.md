@@ -1,4 +1,4 @@
-# Auction Tournament
+# Auction-Design Tournament
 
 This tournament code is developed by Jinkun Geng. 
 
