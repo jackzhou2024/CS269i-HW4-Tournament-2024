@@ -13,7 +13,7 @@ You may use any auction format, as long as:
 * On each round it allocates the item to at most one bidder. 
 
 
-Note: For a fixed vector of bids, the all-pay auction will generate the most revenue. But if  in HW3 you and your classmates submitted robust auto-bidders that will shave bids when facing an aggressive auction like all-pay, it may or may not be a good auction for you to use. 
+Note: For a fixed vector of bids, the all-pay auction will generate the most revenue. But if  in HW3 you and your classmates submitted robust auto-bidders that will shade bids when facing an aggressive auction like all-pay, it may or may not be a good auction for you to use. 
 
 
 
