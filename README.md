@@ -6,7 +6,7 @@ This tournament code is developed by Jinkun Geng.
 How this works:
 This time, your task is to write an auction strategy, following the template in auctionStrats; i.e., you will implement a function called auctionStrategy, which takes as input two bid prices and return a 2x2 list to represent the auction results (refer to the comments in the examples)
 
-We will use the bidding strategies submitted for HW3 by you and your classmates, and we will run you auction strategy for these bidding bots. After 10000-round-repeated auction between each pair of these classmates' auto-bidders, we will calculate the revenue earned by your auction strategy as your score. A better auction strategy should enable you to earn more revenue. 
+We will use the bidding strategies submitted for HW3 by you and your classmates, and we will run your auction strategy for these bidding bots. After 10000-round-repeated auction between each pair of these classmates' auto-bidders, we will calculate the revenue earned by your auction strategy as your score. A better auction strategy should enable you to earn more revenue. 
 
 You may use any auction format, as long as:
 * On each round it never charges either bidder more than they bid; and
