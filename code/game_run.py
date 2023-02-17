@@ -87,12 +87,12 @@ def runRound(pair, auction):
         #     cnt2 += 1
         # print(bid1," vs ", bid2, " win ", cnt1, " vs ", cnt2)
 
-        score1 = calcScore(v1, auctionResult[0][0], auctionResult[0][1])
-        score2 = calcScore(v2, auctionResult[1][0], auctionResult[1][1])
+        score1 = calcScore(v1, result1, payment1)
+        score2 = calcScore(v2, result2, payment2)
         totalScore1 += score1
         totalScore2 += score2
-        history1.append([v1, bid1, auctionResult[0][0], auctionResult[0][1]])
-        history2.append([v2, bid2, auctionResult[1][0], auctionResult[1][1]])
+        history1.append([v1, bid1, result1, payment1])
+        history2.append([v2, bid2, result2, payment2])
 
         revenue += auctionResult[0][1] +  auctionResult[1][1]
     return totalScore1, totalScore2, revenue 
