@@ -1,4 +1,4 @@
-# Auction Tournament
+# Auction-Design Tournament
 
 This tournament code is developed by Jinkun Geng. 
 
@@ -6,26 +6,28 @@ This tournament code is developed by Jinkun Geng.
 How this works:
 This time, your task is to write an auction strategy, following the template in auctionStrats; i.e., you will implement a function called auctionStrategy, which takes as input two bid prices and return a 2x2 list to represent the auction results (refer to the comments in the examples)
 
-We will use the biding strategies submitted by students in HW3, and we will run you auction strategy for these bidding bots. After 1000-round-repeated auction between each pair of these classmates' auto-bidders, we will calculate the revenue earned by your auction strategy as your score. A better auction strategy should enable you to earn more revenue. 
+We will use the bidding strategies submitted for HW3 by you and your classmates, and we will run your auction strategy for these bidding bots. After 10000-round-repeated auction between each pair of these classmates' auto-bidders, we will calculate the revenue earned by your auction strategy as your score. A better auction strategy should enable you to earn more revenue. 
 
-We are not specifying the auction format a-priori (see restrictions on auction format below), so your auto-bidder will have to learn how to bid based on feedback (value, bid, payment, and allocation) from previous rounds. 
+You may use any auction format, as long as:
+* On each round it never charges either bidder more than they bid; and
+* On each round it allocates the item to at most one bidder. 
+
+
+Note: For a fixed vector of bids, the all-pay auction will generate the most revenue. But if  in HW3 you and your classmates submitted robust auto-bidders that will shade bids when facing an aggressive auction like all-pay, it may or may not be a good auction for you to use. 
 
 
 
-# Score Calculation
+# Objective
 Your score is the average revenue earned by your auction strategy. 
 
-
-In our gradescope test, we may include new metric to calcuate the score (e.g. using the welfare instead of revenue).
 
 
 # Tasks
 You are expected to write a python file named strategy.py (Please keep this name!). In this file you are expected to implement a function named auctionStrategy. After you finish you code, put the strategy.py to the folder auctionStrats, run the game_run.py.
 
 
-We have made three examples in auctionStrats, i.e., first-price based auction, second-price based auction, and all-paid auction. You should design your own auction strategy to earn the most revenue. 
+We have made three examples in auctionStrats, i.e., first-price based auction, second-price based auction, and all-pay auction. You should design your own auction strategy to earn the most revenue. 
 
-You may think that all-paid auction is a good choice, but probably it will not earn the most revenue since there are many bidding strategies using multi-armed-bandit algorithms in the last submission. If you continue to charge both bidders, the MAB algorithm might take corresponding action to reduce the bid prices.
 
 
 # Tips
