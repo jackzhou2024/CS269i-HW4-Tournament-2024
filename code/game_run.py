@@ -73,6 +73,14 @@ def runRound(pair, auction):
     
         # print("bid1=", bid1, " bid2=",bid2)
         auctionResult = moduleAuction.auctionStrategy(bid1, bid2)
+        result1 = auctionResult[0][0]
+        result2 = auctionResult[1][0]
+        payment1 = auctionResult[0][1]
+        payment2 = auctionResult[1][1]
+        if payment1 >bid1 or payment2 >bid2:
+            raise Exception("Bidder's payment cannot be larger than the bid price, please check your auction strategy")
+        if not ((result1==1 and result2 ==0) or (result1 == 0 and result2 ==1) or (result1 == 0 and result2 ==0)):
+            raise Exception("At most one bidder can win, and it is allowed that neither wins")
         # if auctionResult[0][0]==1:
         #     cnt1 +=1
         # if auctionResult[1][0]==1:
