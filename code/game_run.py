@@ -86,7 +86,7 @@ def runRound(pair, auction):
         history1.append([v1, bid1, auctionResult[0][0], auctionResult[0][1]])
         history2.append([v2, bid2, auctionResult[1][0], auctionResult[1][1]])
 
-        revenue += auctionResult[0][1] +  auctionResult[0][1]
+        revenue += auctionResult[0][1] +  auctionResult[1][1]
     return totalScore1, totalScore2, revenue 
 
 
