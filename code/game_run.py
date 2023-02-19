@@ -64,6 +64,8 @@ def runRound(pair, auction):
     cnt1 = 0
     cnt2 = 0
     revenue = 0
+    auctionHistory1 = []
+    auctionHistory2 = []
     for turn in range(NUM_ROUNDS):
         contextItem = contextJson[turn]
         v1 = contextItem["v1"]
@@ -72,7 +74,8 @@ def runRound(pair, auction):
         bid2 = moduleB.strategy(v2, history2)
     
         # print("bid1=", bid1, " bid2=",bid2)
-        auctionResult = moduleAuction.auctionStrategy(bid1, bid2)
+        # The auction strategy can also see the history of bids, payments, and allocations (but not values)
+        auctionResult = moduleAuction.auctionStrategy(bid1, bid2, auctionHistory1, auctionHistory2)
         result1 = auctionResult[0][0]
         result2 = auctionResult[1][0]
         payment1 = auctionResult[0][1]
@@ -93,6 +96,9 @@ def runRound(pair, auction):
         totalScore2 += score2
         history1.append([v1, bid1, result1, payment1])
         history2.append([v2, bid2, result2, payment2])
+        
+        auctionHistory1.append([bid1, result1, payment1])
+        auctionHistory2.append([bid2, result2, payment2])
 
         revenue += auctionResult[0][1] +  auctionResult[1][1]
     return totalScore1, totalScore2, revenue 
