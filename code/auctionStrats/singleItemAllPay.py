@@ -1,6 +1,10 @@
 import random
 import numpy as np
 
+# return the name of the strategy
+def get_name():
+    return "All-Pay Auction"
+
 # auctionStrategy receives the biding prices from the two auto-bidders
 # In addition, it also receives their history, i.e., auctionHistory1 and auctionHistory2
 # auctionHistory1/auctionHistory2 is a list of 3-tuples, (bid, result, payment), recording
@@ -12,8 +16,6 @@ import numpy as np
 # each 2-tuple includes the allocation result (i.e., a flag indicating whether you win the item), and your payment
 
 # If there is a tie, make a random winner 
-def get_name():
-    return "All-Pay Auction"
 
 
 def auctionStrategy(bid1, bid2, auctionHistory1, auctionHistory2):
