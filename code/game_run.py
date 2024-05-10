@@ -11,6 +11,7 @@ CONTEXT_FILE = "context.json"
 
 
 NUM_ROUNDS = 10000 # You can reduce the num round when you debug
+TOTAL_BUDGET = 0.25 * NUM_ROUNDS
 
 def gen_context():
     f = open(CONTEXT_FILE, 'w')
@@ -32,19 +33,19 @@ def gen_context():
     json.dump(jsonArr, f, indent=4)
 
 
-# gen_context()       
+gen_context()       
 # exit(0)
 
 
 
 
-def calcScore(value, allocationResult, payment):
+def calcScore(value, allocationResult):
     if allocationResult == 1:
-        # winner, utility(score) is value-payment
-        return value - payment
+        # winner, score is value
+        return value
     else:
-        # loser: utility is 0-payment
-        return 0 - payment
+        # loser:  score 0
+        return 0
     
 def calcRevenue():
     pass
@@ -63,15 +64,25 @@ def runRound(pair, auction):
     history2 = []
     cnt1 = 0
     cnt2 = 0
-    revenue = 0
+    budget1 = TOTAL_BUDGET
+    budget2 = TOTAL_BUDGET
+
     auctionHistory1 = []
     auctionHistory2 = []
     for turn in range(NUM_ROUNDS):
         contextItem = contextJson[turn]
         v1 = contextItem["v1"]
         v2 = contextItem["v2"]
-        bid1 = moduleA.strategy(v1, history1)
-        bid2 = moduleB.strategy(v2, history2)
+        bid1 = moduleA.strategy(v1, budget1, LENGTH_OF_GAME - turn, history1)
+        bid2 = moduleB.strategy(v2, budget2, LENGTH_OF_GAME - turn, history2)
+        bid1 = min(bid1, budget1)
+        bid2 = min(bid2, budget2)
+        if(bid1 < 0):
+            raise Exception("bid1 price is not valid (< 0) ", bid1)
+        if(bid2 < 0):
+            raise Exception("bid2 price is not valid (< 0)  ", bid2)
+
+
     
         # print("bid1=", bid1, " bid2=",bid2)
         # The auction strategy can also see the history of bids, payments, and allocations (but not values)
@@ -90,8 +101,10 @@ def runRound(pair, auction):
         #     cnt2 += 1
         # print(bid1," vs ", bid2, " win ", cnt1, " vs ", cnt2)
 
-        score1 = calcScore(v1, result1, payment1)
-        score2 = calcScore(v2, result2, payment2)
+        score1 = calcScore(v1, result1)
+        score2 = calcScore(v2, result2)
+        budget1 -= payment1
+        budget2 -= payment2
         totalScore1 += score1
         totalScore2 += score2
         history1.append([v1, bid1, result1, payment1])
@@ -100,8 +113,7 @@ def runRound(pair, auction):
         auctionHistory1.append([bid1, result1, payment1])
         auctionHistory2.append([bid2, result2, payment2])
 
-        revenue += auctionResult[0][1] +  auctionResult[1][1]
-    return totalScore1, totalScore2, revenue 
+    return totalScore1, totalScore2, totalScore1 + totalScore2 
 
 
 def pad(stri, leng):
@@ -129,15 +141,15 @@ def runFullPairingTournament(auctionFolder, stratsFolder):
 
 
     for auction in AUCTION_LIST:
-        totalRevenue = 0
+        totalWelfare = 0
         pairNum = 0
         for pair in itertools.combinations(STRATEGY_LIST, r=2):
-            score1, score2, revenue = runRound(pair, auction)
+            score1, score2, welfare = runRound(pair, auction)
             scoreKeeper[pair[0]] += score1
             scoreKeeper[pair[1]] += score2
-            totalRevenue += revenue
+            totalWelfare += welfare
             pairNum +=1
-        print(auction, "Pair Number=", pairNum, "\t RevenuePerRound ", round(totalRevenue/pairNum,2))
+        print(auction, "Pair Number=", pairNum, "\t WelfarePerPair ", round(totalWelfare/pairNum,2))
         
     
         
