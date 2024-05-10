@@ -1,24 +1,21 @@
 # Auction-Design Tournament
 
-This tournament code is developed by Jinkun Geng. 
+This tournament code was originally developed by Jinkun Geng and modified by Jack Zhou for the welfare-maximizing setting.
 
 
 How this works:
 This time, your task is to write an auction strategy, following the template in auctionStrats; i.e., you will implement a function called auctionStrategy, which takes as input two bid prices and return a 2x2 list to represent the auction results (refer to the comments in the examples)
 
-We will use the bidding strategies submitted for HW3 by you and your classmates, and we will run your auction strategy for these bidding bots. After 10000-round-repeated auction between each pair of these classmates' auto-bidders, we will calculate the revenue earned by your auction strategy as your score. A better auction strategy should enable you to earn more revenue. 
+We will use the bidding strategies submitted for HW3 by you and your classmates, and we will run your auction strategy for these bidding bots. We will sample some pairs of your classmates' auto-bidders. For each pair, we will give each auto-bidder an inital budget of 2500 and run your auction strategy for 10,000 rounds. We then calculate the total welfare, i.e. sum of the value of each round's winner, achieved by your auction strategy as your score. Your goal is to achieve total welfare as high as possible. 
 
 You may use any auction format, as long as:
 * On each round it never charges either bidder more than they bid; and
-* On each round it allocates the item to at most one bidder. 
-
-
-Note: For a fixed vector of bids, the all-pay auction will generate the most revenue. But if  in HW3 you and your classmates submitted robust auto-bidders that will shade bids when facing an aggressive auction like all-pay, it may or may not be a good auction for you to use. 
+* On each round it allocates the item to at most one bidder.
 
 
 
 # Objective
-Your score is the average revenue earned by your auction strategy. 
+Your score is the average total welfare achieved by your auction strategy. 
 
 
 
