@@ -6,7 +6,7 @@ This tournament code was originally developed by Jinkun Geng and modified by Jac
 How this works:
 This time, your task is to write an auction strategy, following the template in auctionStrats; i.e., you will implement a function called auctionStrategy, which takes as input two bid prices and return a 2x2 list to represent the auction results (refer to the comments in the examples)
 
-We will use the bidding strategies submitted for HW3 by you and your classmates, and we will run your auction strategy for these bidding bots. We will randomly sample some pairs of your classmates' auto-bidders. For each pair, we will give each auto-bidder an inital budget of 2500 and run your auction strategy for 10,000 rounds. We then calculate the total welfare, i.e. sum of the value of each round's winner, achieved by your auction strategy as your score. Your goal is to achieve total welfare as high as possible. 
+We will use the bidding strategies submitted for HW3 by you and your classmates, and we will run your auction strategy for these bidding bots. We will randomly sample some pairs of your classmates' auto-bidders. For each pair, we will give each auto-bidder an inital budget of 2500 and run your auction strategy for 10,000 rounds. We then calculate the **total welfare**, i.e. sum of the value of each round's winner, achieved by your auction strategy as your score. Your goal is to achieve **total welfare** as high as possible. 
 
 You may use any auction format, as long as:
 * On each round it never charges either bidder more than they bid; and
@@ -15,7 +15,7 @@ You may use any auction format, as long as:
 
 
 # Objective
-Your score is the average total welfare achieved by your auction strategy. 
+Your score is the average **total welfare** achieved by your auction strategy. 
 
 
 
