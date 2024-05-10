@@ -1,6 +1,11 @@
 import random
 import numpy as np
 
+# return the name of the strategy
+def get_name():
+    return "First Price Auction"
+
+
 # auctionStrategy receives the biding prices from the two auto-bidders
 # In addition, it also receives their history, i.e., auctionHistory1 and auctionHistory2
 # auctionHistory1/auctionHistory2 is a list of 3-tuples, (bid, result, payment), recording
