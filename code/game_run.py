@@ -151,7 +151,7 @@ def runFullPairingTournament(auctionFolder, stratsFolder):
             totalWelfare += welfare
             totalRevenue += revenue
             pairNum +=1
-        print("\t AvgScore ", round((totalRevenue + totalWelfare)/pairNum,2), "\t AvgWelfare ", round(totalWelfare/pairNum,2), "\t AvgRevenue ", round(totalRevenue/pairNum,2))
+        print(auction, "\t AvgScore ", round((totalRevenue + totalWelfare)/pairNum,2), "\t AvgWelfare ", round(totalWelfare/pairNum,2), "\t AvgRevenue ", round(totalRevenue/pairNum,2))
         
     
         
