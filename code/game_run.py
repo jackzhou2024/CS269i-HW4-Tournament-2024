@@ -66,6 +66,7 @@ def runRound(pair, auction):
     cnt2 = 0
     budget1 = TOTAL_BUDGET
     budget2 = TOTAL_BUDGET
+    revenue = 0
 
     auctionHistory1 = []
     auctionHistory2 = []
@@ -105,6 +106,7 @@ def runRound(pair, auction):
         score2 = calcScore(v2, result2)
         budget1 -= payment1
         budget2 -= payment2
+        revenue += payment1 + payment2
         totalScore1 += score1
         totalScore2 += score2
         history1.append([v1, bid1, result1, payment1])
@@ -113,7 +115,7 @@ def runRound(pair, auction):
         auctionHistory1.append([bid1, result1, payment1])
         auctionHistory2.append([bid2, result2, payment2])
 
-    return totalScore1, totalScore2, totalScore1 + totalScore2 
+    return totalScore1 + totalScore2, revenue
 
 
 def pad(stri, leng):
@@ -142,14 +144,14 @@ def runFullPairingTournament(auctionFolder, stratsFolder):
 
     for auction in AUCTION_LIST:
         totalWelfare = 0
+        totalRevenue = 0
         pairNum = 0
         for pair in itertools.combinations(STRATEGY_LIST, r=2):
-            score1, score2, welfare = runRound(pair, auction)
-            scoreKeeper[pair[0]] += score1
-            scoreKeeper[pair[1]] += score2
+            welfare, revenue = runRound(pair, auction)
             totalWelfare += welfare
+            totalRevenue += revenue
             pairNum +=1
-        print(auction, "Pair Number=", pairNum, "\t WelfarePerPair ", round(totalWelfare/pairNum,2))
+        print("\t AvgScore ", round((totalRevenue + totalWelfare)/pairNum,2), "\t AvgWelfare ", round(totalWelfare/pairNum,2), "\t AvgRevenue ", round(totalRevenue/pairNum,2))
         
     
         
