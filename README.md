@@ -23,7 +23,7 @@ Your score is the **sum of total welfare and revenue** achieved by your auction 
 You are expected to write a python file named strategy.py (Please keep this name!). In this file you are expected to implement a function named auctionStrategy. After you finish you code, put the strategy.py to the folder auctionStrats, run the game_run.py.
 
 
-We have made three examples in auctionStrats, i.e., first-price based auction, second-price based auction, and all-pay auction. You should design your own auction strategy to earn the most revenue. 
+We have made three examples in auctionStrats, i.e., first-price based auction, second-price based auction, and all-pay auction. 
 
 
 
