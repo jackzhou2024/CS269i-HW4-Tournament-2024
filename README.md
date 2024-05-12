@@ -1,6 +1,6 @@
 # Auction-Design Tournament
 
-This tournament code was originally developed by Jinkun Geng and modified by Jack Zhou for the welfare-maximizing setting.
+This tournament code was originally developed by Jinkun Geng and modified by Jack Zhou.
 
 
 How this works:
